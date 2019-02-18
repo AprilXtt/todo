@@ -1,5 +1,5 @@
 const path = require('path');
-const { VueLoaderPlugin } = require('vue-loader')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HTMlPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
@@ -19,6 +19,10 @@ const config = {
         loader: 'vue-loader',
       },
       {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+      },
+      {
         test: /\.css$/,
         use: [
           'style-loader',
@@ -26,10 +30,16 @@ const config = {
         ]
       },
       {
-        test: /\.styl$/,
+        test: /\.styl/,
         use: [
           'style-loader',
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourcemap: true,
+            }
+          },
           'stylus-loader'
         ]
       },
